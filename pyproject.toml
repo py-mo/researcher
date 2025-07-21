@@ -8,5 +8,4 @@ dependencies = [
     "langchain",
     "openai>=1.96.1",
     "requests>=2.32.4",
-    "sentence-transformers",
 ]
