@@ -8,7 +8,7 @@
 
 | Layer       | Tools |
 |-------------|-------|
-| Backend    | Python, LangChain, Sentence Transformers |
+| Backend    | Python, LangChain |
 | LLMs       | OpenAI API, Ollama |
 
 ## 🤖 Ollama Setup (Optional for Local LLMs)
