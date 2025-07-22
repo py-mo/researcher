@@ -8,7 +8,7 @@ Follow these steps to set up **ResearcherApp** on your local machine.
 
 ```bash
 git clone https://github.com/py-mo/researcher.git
-cd ResearcherApp
+cd researcher
 ```
 ---
 
