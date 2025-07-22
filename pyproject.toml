@@ -7,5 +7,6 @@ requires-python = ">=3.12"
 dependencies = [
     "langchain",
     "openai>=1.96.1",
+    "pytest>=8.4.1",
     "requests>=2.32.4",
 ]
