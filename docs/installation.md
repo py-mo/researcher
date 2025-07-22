@@ -7,10 +7,9 @@ Follow these steps to set up **ResearcherApp** on your local machine.
 ## 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/ResearcherApp.git
+git clone https://github.com/py-mo/researcher.git
 cd ResearcherApp
 ```
-
 ---
 
 ## 2️⃣ Setup Python Environment with uv
