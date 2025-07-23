@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from researcher.storage.folder_manager import FolderManager
+from researcher import FolderManager
 
 
 def test_folder_manager_creates_papers_dir(tmp_path: Path):

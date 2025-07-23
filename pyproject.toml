@@ -16,3 +16,6 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.scripts]
+researcher = "researcher.cli.cli:main"
