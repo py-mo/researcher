@@ -26,6 +26,7 @@ then
 ```bash
 ollama serve
 ollama pull phi3:mini
+ollama pull nomic-embed-text
 ollama run phi3:mini
 ```
 ---
