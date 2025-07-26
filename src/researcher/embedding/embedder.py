@@ -1,34 +1,33 @@
 import json
-import subprocess
+import requests
 from pathlib import Path
 from typing import List
 
 class NomicEmbedder:
-    def __init__(self, model: str = "nomic-embed-text"):
+    def __init__(self, model: str = "nomic-embed-text", base_url: str = "http://localhost:11434"):
         self.model = model
+        self.api_url = f"{base_url}/api/embeddings"
 
     def embed(self, texts: List[str]) -> List[List[float]]:
-        prompt = {
-            "model": self.model,
-            "prompt": texts,
-            "stream": False
-        }
+        if not texts or not all(isinstance(t, str) for t in texts):
+            raise ValueError("`texts` must be a non-empty list of strings")
 
-        input_file = Path("data/embedding/embedding_input.json")
-        input_file.write_text(json.dumps(prompt), encoding="utf-8")
-
-        result = subprocess.run(
-            ["ollama", "run", self.model, "<", str(input_file)],
-            shell=True,
-            capture_output=True,
-            text=True,
+        response = requests.post(
+            self.api_url,
+            json={
+                "model": self.model,
+                "prompt": texts
+            }
         )
 
-        if result.returncode != 0:
-            raise RuntimeError(f"Ollama embedding failed: {result.stderr}")
+        if response.status_code != 200:
+            raise RuntimeError(f"Embedding failed: {response.text}")
 
-        response = json.loads(result.stdout)
-        return response["data"]
+        try:
+            data = response.json()
+            return data["embedding"] if "embedding" in data else [d["embedding"] for d in data["data"]]
+        except (ValueError, KeyError) as e:
+            raise RuntimeError(f"Failed to parse embedding response: {e}")
 
     def embed_and_store(self, paper_id: str, chunks: List[str], out_dir: Path):
         vectors = self.embed(chunks)
