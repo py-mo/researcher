@@ -3,11 +3,19 @@
 Welcome to the ResearcherApp — your modular research assistant.
 
 This app is designed to help researchers, students, and developers:
+
 - Collect, organize, and read research papers
 - Extract and manage metadata and notes
 - Track experiments and research projects
 - Perform semantic search over papers and notes
 - Integrate with AI models (local with Ollama or remote with OpenAI)
+
+---
+
+## 📖 What’s in This Documentation?
+
+- [Installation Guide](installation.md)
+- [Usage Guide](usage.md)
 
 ---
 
