@@ -42,6 +42,7 @@ Search arXiv for papers related to a keyword:
 researcher search "graph neural networks" [--max-results N]
 ```
 
+By default max-results is set to 5.
 This will display a list of arXiv paper links in the terminal.
 
 ## 📥 Download Paper
@@ -53,4 +54,15 @@ researcher "download https://arxiv.org/2501.12948.pdf" [--output "/path/to/save/
 ```
 
 By default, the paper will be saved to data/papers/ using the paper ID as the filename.
+You can optionally specify a custom path to override the default save location.
+
+## 📥 Fetch papers
+
+Search and download related papers from arXiv:
+
+```bash
+researcher fetch-papers "deep learning" --max-results 7 --output "data/papers/dl"
+```
+
+By default max-results is set to 5 and the paper will be saved to data/papers/ using the paper ID as the filename.
 You can optionally specify a custom path to override the default save location.
