@@ -4,9 +4,9 @@ from pathlib import Path
 
 class FetchPapersPipeline:
     def __init__(self, query: str, max_results: int = 5
-                 , path: Path = None): 
+                 , path: Path = None):
         self.query = query
-        self.path = path if path else Path(f"data/papers/{query}")
+        self.path = path if path == None else Path(f"data/papers/{query}/")
         self.max_results = max_results
 
     def run_pipeline(self, raise_err: bool = False):

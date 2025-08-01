@@ -23,3 +23,12 @@ def test_download_cli(tmp_path):
     )
     assert result.returncode == 0
     assert "successful" in result.stdout.lower()
+
+def test_fetch_cli():
+    result = subprocess.run(
+        [sys.executable, str(CLI_PATH), "fetch-papers", "deep learning"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "successfully!." in result.stdout.lower()
