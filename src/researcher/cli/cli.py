@@ -4,19 +4,31 @@ from researcher.pipelines import FetchPapersPipeline
 from pathlib import Path
 
 def handle_search(args):
-    results = ArxivSearch(args.query, args.max_results).search()
-    for idx, paper in enumerate(results, 1):
-        print(f"{idx}. {paper['title']}\n   {paper['link']}\n")
+    try:
+        results = ArxivSearch(args.query, args.max_results).search()
+    except Exception as e:
+        print(f"{str(e)}")
+    else:
+        for idx, paper in enumerate(results, 1):
+            print(f"{idx}. {paper['title']}\n   {paper['link']}\n")
 
 def handle_download(args):
-    downloader = ArxivDownloader(Path(args.output))
-    success = downloader.download_pdf(args.url)
-    print("Download successful" if success else "Download failed")
+    try:
+        downloader = ArxivDownloader(Path(args.output))
+        success = downloader.download_pdf(args.url)
+    except Exception as e:
+        print(f"{str(e)}")
+    else:
+        print("✅Download successful" if success else "Download failed")
 
 def handle_fetch_papers(args):
-    pipeline = FetchPapersPipeline(args.query, args.max_results, Path(args.output))
-    pipeline.run_pipeline()
-    print(f"Papers has been stored in {Path(args.output)} successfully!.")
+    try:
+        pipeline = FetchPapersPipeline(args.query, args.max_results, Path(args.output))
+        pipeline.run_pipeline(raise_err=True)
+    except Exception as e:
+        print(f"{str(e)}")
+    else:
+        print(f"✅Papers has been stored in {Path(args.output)} successfully!.")
 
 def main():
     parser = argparse.ArgumentParser(prog="researcher", description="Researcher CLI")
