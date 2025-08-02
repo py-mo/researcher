@@ -8,14 +8,13 @@ def embedder():
     return NomicEmbedder()
 
 def test_embed_success(embedder):
-    texts = ["hello", "world"]
-    mock_response = MagicMock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {"data": [{"embedding": [0.1, 0.2]}, {"embedding": [0.3, 0.4]}]}
+    texts = ["Hello, world!"]
+    embeddings = embedder.embed(texts)
+    assert embeddings[0][:5] == [0.36005842685699463, -0.015602553263306618, -3.588914632797241, -0.28581148386001587, -0.40117260813713074]
+    texts = ["AAAAAAAA"]
+    embeddings = embedder.embed(texts)
+    assert embeddings[0][:5] != [0.36005842685699463, -0.015602553263306618, -3.588914632797241, -0.28581148386001587, -0.40117260813713074]
 
-    with patch("requests.post", return_value=mock_response):
-        embeddings = embedder.embed(texts)
-        assert embeddings == [[0.1, 0.2], [0.3, 0.4]]
 
 def test_embed_invalid_input(embedder):
     with pytest.raises(ValueError):
@@ -35,20 +34,11 @@ def test_embed_and_store(tmp_path, embedder):
     paper_id = "paper123"
     out_dir = tmp_path
 
-    mock_embeddings = [[0.1, 0.2], [0.3, 0.4]]
-    mock_response = MagicMock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {"data": [{"embedding": e} for e in mock_embeddings]}
+    embedder.embed_and_store(paper_id, chunks, out_dir)
 
-    with patch("requests.post", return_value=mock_response):
-        embedder.embed_and_store(paper_id, chunks, out_dir)
+    file_path = out_dir / f"{paper_id}.json"
+    assert file_path.exists()
 
-        file_path = out_dir / f"{paper_id}.json"
-        assert file_path.exists()
-
-        with file_path.open("r", encoding="utf-8") as f:
-            data = json.load(f)
-            assert data == [
-                {"text": "chunk1", "embedding": [0.1, 0.2]},
-                {"text": "chunk2", "embedding": [0.3, 0.4]}
-            ]
+    with file_path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+        assert data[0]["embedding"][:3] == [-0.33635562658309937, -0.17253240942955017, -2.989074230194092]
