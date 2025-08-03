@@ -6,7 +6,10 @@ class FetchPapersPipeline:
     def __init__(self, query: str, max_results: int = 5
                  , path: Path = None):
         self.query = query
-        self.path = path if path == None else Path(f"data/papers/{query}/")
+        if (path != None) and (str(path) != "None"):
+             self.path = path
+        else:
+            self.path = Path(f"data/papers/{query}/")
         self.max_results = max_results
 
     def run_pipeline(self, raise_err: bool = False):

@@ -1,5 +1,5 @@
 from .fetch_papers import FetchPapersPipeline
-from .embed_papers import EmbedPaperPipeline
+from .embed_papers import EmbedPapersPipeline
 
 
-__all__ = ["FetchPapersPipeline", "EmbedPaperPipeline"]
+__all__ = ["FetchPapersPipeline", "EmbedPapersPipeline"]
