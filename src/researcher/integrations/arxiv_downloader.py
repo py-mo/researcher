@@ -26,7 +26,7 @@ class ArxivDownloader:
         response = requests.get(pdf_url)
         if response.status_code == 200:
             file_path.write_bytes(response.content)
-            if self.print_msg: print(f"✅ Downloaded: {file_path}")
+            if self.print_msg: print(f"✅ Downloaded: {file_path}");
             return file_path
         else:
             raise Exception(f"Failed to download PDF: {pdf_url} | Status: {response.status_code}")
