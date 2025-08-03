@@ -32,3 +32,12 @@ def test_fetch_cli():
     )
     assert result.returncode == 0
     assert "successfully!." in result.stdout.lower()
+
+def test_embed_cli():
+    result = subprocess.run(
+        [sys.executable, str(CLI_PATH), "embed-papers", "deep learning", "data/papers/tmp"],
+        capture_output=True,
+        text=True
+    )
+    assert result.returncode == 0
+    assert "successfully!." in result.stdout.lower()

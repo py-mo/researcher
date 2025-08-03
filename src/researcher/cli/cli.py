@@ -61,7 +61,7 @@ def main():
 
     embed_papers_parser = subparsers.add_parser("embed-papers", help="Embed papers in directory")
     embed_papers_parser.add_argument("topic", type=str, help="Topic")
-    embed_papers_parser.add_argument("--pdf-dir", type=str, help="Pdfs path")
+    embed_papers_parser.add_argument("pdf_dir", type=str, help="Pdfs path")
     embed_papers_parser.add_argument("--output", type=str, default="None", help="Output path(default: data/embedding)")
     embed_papers_parser.set_defaults(func=handle_embed_papers)
 
