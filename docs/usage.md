@@ -56,7 +56,7 @@ researcher "download https://arxiv.org/2501.12948.pdf" [--output "/path/to/save/
 By default, the paper will be saved to data/papers/ using the paper ID as the filename.
 You can optionally specify a custom path to override the default save location.
 
-## 📥 Fetch papers
+## 🔍 Fetch papers
 
 Search and download related papers from arXiv:
 
@@ -65,4 +65,15 @@ researcher fetch-papers "deep learning" [--max-results N --output "/path/to/save
 ```
 
 By default max-results is set to 5 and the paper will be saved to data/papers/ using the paper ID as the filename.
+You can optionally specify a custom path to override the default save location.
+
+## 🧠 Embed Papers
+
+Extracts text from downloaded PDFs, embeds them using `nomic-embed-text`.
+
+```bash
+researcher embed-papers "deep learning" "/path/to/your/file.pdf" [--output "/path/to/save/file"]
+```
+
+By default the embedding vectors will be saved to data/embedding/ using the topic as the foldername.
 You can optionally specify a custom path to override the default save location.
