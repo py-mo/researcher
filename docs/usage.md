@@ -61,10 +61,10 @@ You can optionally specify a custom path to override the default save location.
 Search and download related papers from arXiv:
 
 ```bash
-researcher fetch-papers "deep learning" [--max-results N --output "/path/to/save/file.pdf"]
+researcher fetch-papers "deep learning" [--max-results N --output "/path/to/save/file.pdf" --metadata "/path/to/save/file"]
 ```
 
-By default max-results is set to 5 and the paper will be saved to data/papers/ using the paper ID as the filename.
+By default max-results is set to 5 and the paper will be saved to data/papers/ and metadata  will be stored in data/metadata/ using the paper ID as the filename.
 You can optionally specify a custom path to override the default save location.
 
 ## 🧠 Embed Papers
@@ -72,7 +72,7 @@ You can optionally specify a custom path to override the default save location.
 Extracts text from downloaded PDFs, embeds them using `nomic-embed-text`.
 
 ```bash
-researcher embed-papers "deep learning" "/path/to/your/file.pdf" [--output "/path/to/save/file"]
+researcher embed-papers "deep learning" "/path/to/your/file" [--output "/path/to/save/file"]
 ```
 
 By default the embedding vectors will be saved to data/embedding/ using the topic as the foldername.
