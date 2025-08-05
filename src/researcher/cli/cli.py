@@ -14,7 +14,8 @@ def handle_search(args):
 
 def handle_download(args):
     try:
-        downloader = ArxivDownloader(Path(args.output))
+        downloader = ArxivDownloader(download_dir=Path(args.output)
+                                     , metadata_dir=Path(args.metadata))
         success = downloader.download_pdf(args.url)
     except Exception as e:
         print(f"{str(e)}")
@@ -57,6 +58,7 @@ def main():
     fetch_papers_parser.add_argument("query", type=str, help="Search query")
     fetch_papers_parser.add_argument("--max-results", type=int, default=5, help="Maximum number of results (default: 5)")
     fetch_papers_parser.add_argument("--output", type=str, default="None", help="Output path(default: data/papers)")
+    fetch_papers_parser.add_argument("--metadata", type=str, default="None", help="Metadata path(default: data/metadata)")
     fetch_papers_parser.set_defaults(func=handle_fetch_papers)
 
     embed_papers_parser = subparsers.add_parser("embed-papers", help="Embed papers in directory")
