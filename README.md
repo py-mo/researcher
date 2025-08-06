@@ -1,6 +1,17 @@
-# 🧠 ResearcherApp
+# 🧠 Researcher
+
+A research assistant powered by LLMs + embeddings for **semantic document search**, **contextual Q&A**, and **automated knowledge extraction**.
 
 > Your personal research assistant — manage papers, take notes, track projects, and search smarter.
+
+---
+
+## ✨ Features
+
+- 🔍 Embedding-based semantic search (Nomic, Ollama, etc.)
+- 🧠 LLM-powered context-aware Q&A
+- 📄 PDF/document ingestion
+- 📚 Designed for academic + deep research workflows
 
 ---
 
@@ -11,27 +22,18 @@
 | Backend    | Python, LangChain |
 | LLMs       | OpenAI API, Ollama |
 
-## 🤖 Ollama Setup (Optional for Local LLMs)
+---
 
-To enable local LLM support using [Ollama](https://ollama.com/):
+## ⚡️ Motivation
 
-### 1️⃣ Install Ollama
+As a CS student with a passion for AI and deep learning, I often read papers and documents. Traditional search is frustrating and inefficient when I need **context-aware** understanding or exploration.
 
-Follow the official installation guide for your platform:  
-[https://ollama.com/download](https://ollama.com/download)
+**Goal:** Build a fast, local tool that helps me extract knowledge from documents through semantic search and LLMs.
 
 ---
 
-### 2️⃣ Start Ollama Service
+## 🙋‍♂️ About Me
+I'm Morteza, a computer science student and AI enthusiast.
+This project is part of my journey into LLMs, retrieval-augmented generation, and building autonomous research tools.
 
-```bash
-ollama serve
-ollama pull phi3:mini
-ollama run phi3:mini
-```
-
-| Model   | Use                   |
-| ------- | --------------------- |
-| llama3  | General-purpose LLM   |
-| mistral | Lightweight model     |
-| phi3    | Open-source assistant |
+> If you're interested in collaborating or sharing ideas, feel free to open an issue or contact me!
