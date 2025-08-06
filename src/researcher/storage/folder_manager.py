@@ -1,18 +1,26 @@
 from pathlib import Path
+import json
 
 
 class FolderManager:
-    def __init__(self, base_dir: Path = Path("data")):
-        self.base_dir = base_dir
-        self.papers_dir = self.base_dir / "papers"
+    def __init__(self, papers_dir: Path = Path("data/papers"), metadata_dir: Path = None):
+        self.papers_dir = papers_dir
+        self.metadata_dir = metadata_dir
         self._setup_folders()
 
     def _setup_folders(self):
-        for folder in [self.papers_dir]:
-            folder.mkdir(parents=True, exist_ok=True)
+            self.papers_dir.mkdir(parents=True, exist_ok=True)
+            if self.metadata_dir: self.metadata_dir.mkdir(parents=True, exist_ok=True);
 
     def get_paper_path(self, paper_id: str) -> Path:
         return self.papers_dir / f"{paper_id}.pdf"
+
+    def get_paper_info(self, paper_id: str) -> dict:
+        if not self.metadata_dir: return {"title": paper_id};
+        with open(self.metadata_dir / f"{paper_id}.json") as f:
+            data = json.load(f)
+        return data
+        
 
 
 if __name__ == "__main__":
