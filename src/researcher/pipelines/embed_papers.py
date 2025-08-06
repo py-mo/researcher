@@ -3,12 +3,12 @@ from pathlib import Path
 
 
 class EmbedPapersPipeline:
-    def __init__(self, topic: str, pdf_dir: Path, index_path: Path = None):
+    def __init__(self, topic: str, pdf_dir: Path, index_path: Path = None, metadata_dir: Path = None):
         self.topic = topic
         self.pdf_dir = pdf_dir
-        self.embedder = NomicEmbedder()
+        self.embedder = NomicEmbedder(metadata_dir=metadata_dir)
         self.chunker = simple_chunk
-        if (index_path != None) and (str(index_path) != "None"):
+        if index_path:
             self.index_path = index_path
         else:
             self.index_path = Path(f"data/embedding/{self.topic}")

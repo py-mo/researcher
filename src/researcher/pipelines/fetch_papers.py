@@ -7,11 +7,11 @@ class FetchPapersPipeline:
                  , output_path: Path = None, metadata_path: Path = None):
         self.query = query
         self.max_results = max_results
-        if (output_path != None) and (str(output_path) != "None"):
+        if output_path:
              self.output_path = output_path
         else:
             self.output_path = Path(f"data/papers/{query}/")
-        if (metadata_path != None) and (str(metadata_path) != "None"):
+        if metadata_path:
              self.metadata_path = metadata_path
         else:
             self.metadata_path = Path(f"data/metadata/{query}/")

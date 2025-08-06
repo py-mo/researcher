@@ -24,7 +24,11 @@ def handle_download(args):
 
 def handle_fetch_papers(args):
     try:
-        pipeline = FetchPapersPipeline(args.query, args.max_results, Path(args.output))
+        if args.output != "None":
+            output = Path(args.output)
+        else:
+            output = None
+        pipeline = FetchPapersPipeline(args.query, args.max_results, output)
         pipeline.run_pipeline(raise_err=True)
     except Exception as e:
         print(f"{str(e)}")
@@ -33,7 +37,17 @@ def handle_fetch_papers(args):
 
 def handle_embed_papers(args):
     try:
-        pipeline = EmbedPapersPipeline(args.topic, Path(args.pdf_dir), Path(args.output))
+        if args.output != "None":
+            output = Path(args.output)
+        else:
+            output = None
+
+        if args.metadata_dir != "None":
+            metadata = Path(args.metadata_dir)
+        else:
+            metadata = None
+
+        pipeline = EmbedPapersPipeline(args.topic, Path(args.pdf_dir), output, metadata)
         pipeline.run_pipeline(raise_err=True)
     except Exception as e:
         print(f"{str(e)}")
@@ -64,6 +78,7 @@ def main():
     embed_papers_parser = subparsers.add_parser("embed-papers", help="Embed papers in directory")
     embed_papers_parser.add_argument("topic", type=str, help="Topic")
     embed_papers_parser.add_argument("pdf_dir", type=str, help="Pdfs path")
+    embed_papers_parser.add_argument("--metadata_dir", type=str, default="None", help="Metadata path")
     embed_papers_parser.add_argument("--output", type=str, default="None", help="Output path(default: data/embedding)")
     embed_papers_parser.set_defaults(func=handle_embed_papers)
 
