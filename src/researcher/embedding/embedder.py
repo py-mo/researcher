@@ -2,12 +2,17 @@ import json
 import requests
 from pathlib import Path
 from typing import List
+from researcher import FolderManager
 
 
 class NomicEmbedder:
-    def __init__(self, model: str = "nomic-embed-text", base_url: str = "http://localhost:11434"):
+    def __init__(self, model: str = "nomic-embed-text", base_url: str = "http://localhost:11434"
+                 , papers_dir: Path = None, metadata_dir: Path = None):
         self.model = model
         self.api_url = f"{base_url}/api/embeddings"
+        self.papers_dir = papers_dir if papers_dir else Path("data/papers");
+        self.metadata_dir = metadata_dir
+        self.folder_manager = FolderManager(self.papers_dir, self.metadata_dir)
 
     def embed(self, texts: List[str]) -> List[List[float]]:
         if not texts or not all(isinstance(t, str) for t in texts):
@@ -34,10 +39,18 @@ class NomicEmbedder:
         
         return embedding
 
-    def embed_and_store(self, paper_id: str, chunks: List[str], out_dir: Path):
-        vectors = self.embed(chunks)
-        output = [{"text": paper_id, "embedding": e} for t, e in zip(chunks, vectors)]
+    def embed_and_store(self, paper_id: str, chunk: str
+                        , out_dir: Path):
+        vectors = self.embed(chunk)
+        title = self.folder_manager.get_paper_info(paper_id)["title"]
+        output = [{"title": title, "embedding": vectors}]
 
         file_path = out_dir / f"{paper_id}.json"
         file_path.parent.mkdir(parents=True, exist_ok=True)
         file_path.write_text(json.dumps(output, indent=2), encoding="utf-8")
+    
+    @staticmethod
+    def load_vectors_from_json(json_path: Path) -> list[tuple[str, list[float]]]:
+        with open(json_path) as f:
+            data = json.load(f)
+        return [(k, v["embedding"]) for k, v in data.items()]
