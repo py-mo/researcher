@@ -35,6 +35,12 @@ ollama pull nomic-embed-text
 ollama run phi3:mini
 ```
 
+| Model   | Use                   |
+| ------- | --------------------- |
+| llama3  | General-purpose LLM   |
+| mistral | Lightweight model     |
+| phi3    | Open-source assistant |
+
 ---
 
 ## 4️⃣ Install Project in Editable Mode (For Development)
