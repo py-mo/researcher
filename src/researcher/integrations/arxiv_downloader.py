@@ -22,7 +22,6 @@ class ArxivDownloader:
         pdf_url = self.get_pdf_url(arxiv_abs_url)
         arxiv_id = pdf_url.split("/")[-1].replace(".pdf", "")
         file_path = self.download_dir / f"{arxiv_id}.pdf"
-        metadata_path = self.metadata_dir / f"{arxiv_id}.json"
 
         if file_path.exists():
             if self.print_msg: print(f"✔ PDF already downloaded: {file_path}");
@@ -36,6 +35,7 @@ class ArxivDownloader:
             raise Exception(f"Failed to download PDF: {pdf_url} | Status: {response.status_code}")
 
         if self.metadata_dir:
+            metadata_path = self.metadata_dir / f"{arxiv_id}.json"
             metadata_path.write_text(json.dumps(entries, indent=2), encoding="utf-8")
         
         return file_path
