@@ -7,9 +7,9 @@ from researcher import EmbeddingSearcher
 @pytest.fixture
 def sample_data():
     return [
-        ("doc1", [1.0, 0.0, 0.0]),
-        ("doc2", [0.0, 1.0, 0.0]),
-        ("doc3", [0.0, 0.0, 1.0]),
+        ("doc1", [[1.0, 0.0, 0.0]]),
+        ("doc2", [[0.0, 1.0, 0.0]]),
+        ("doc3", [[0.0, 0.0, 1.0]]),
     ]
 
 

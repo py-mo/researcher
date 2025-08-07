@@ -41,4 +41,4 @@ def test_embed_and_store(tmp_path, embedder):
 
     with file_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
-        assert data[0]["embedding"][:3] == [-0.33635562658309937, -0.17253240942955017, -2.989074230194092]
+        assert data[0]["embedding"][0][:3] == [-0.33635562658309937, -0.17253240942955017, -2.989074230194092]
