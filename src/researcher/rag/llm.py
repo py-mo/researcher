@@ -6,7 +6,7 @@ class LLMInference:
         self.client = Client()
         self.model = model
 
-    def ask(self, prompt: str, system_prompt: Optional[str] = None) -> str:
+    def ask(self, prompt: str, system_prompt: Optional[str] = None, options: dict = None) -> str:
         messages = []
 
         if system_prompt:
@@ -17,7 +17,8 @@ class LLMInference:
         response = self.client.chat(
             model=self.model,
             messages=messages,
-            stream=False
+            stream=False,
+            options=options
         )
         return response['message']['content']
 
