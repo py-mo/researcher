@@ -65,7 +65,8 @@ def main():
 
     download_parser = subparsers.add_parser("download", help="Download a paper from URL")
     download_parser.add_argument("url", type=str, help="PDF URL")
-    download_parser.add_argument("--output", type=str, default=Path("data/embedding"), help="Output path(default: data/papers)")
+    download_parser.add_argument("--output", type=str, default=Path("data/papers"), help="Output path(default: data/papers)")
+    download_parser.add_argument("--metadata", type=str, default=Path("data/metadata"), help="Output path(default: data/metadata)")
     download_parser.set_defaults(func=handle_download)
 
     fetch_papers_parser = subparsers.add_parser("fetch-papers", help="Fetch papers from arXiv")
