@@ -50,7 +50,11 @@ class NomicEmbedder:
         file_path.write_text(json.dumps(output, indent=2), encoding="utf-8")
     
     @staticmethod
-    def load_vectors_from_json(json_path: Path) -> list[tuple[str, list[float]]]:
+    def load_vectors_from_json(json_path: Path) -> tuple[str, list[float]]:
         with open(json_path) as f:
             data = json.load(f)
-        return [(k, v["embedding"]) for k, v in data.items()]
+
+        vector = data[0]["embedding"]
+        title = data[0]["title"]
+
+        return [title, vector]
