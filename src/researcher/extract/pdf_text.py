@@ -18,7 +18,7 @@ class PDFTextExtractor:
                     content = page.extract_text()
                     if content:
                         text.append(content)
-            return "\n".join(text) if text else None
+            return "\n".join(text) if text else "Nothing Found"
         except Exception as e:
             print(f"[ERROR] Failed to extract from {self.file_path}: {e}")
             return None
