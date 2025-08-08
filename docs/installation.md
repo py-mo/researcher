@@ -30,9 +30,9 @@ then
 
 ```bash
 ollama serve
-ollama pull phi3:mini
+ollama pull phi4-mini
 ollama pull nomic-embed-text
-ollama run phi3:mini
+ollama run phi4-mini
 ```
 
 | Model   | Use                      |
