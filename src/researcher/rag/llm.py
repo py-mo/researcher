@@ -2,7 +2,7 @@ from ollama import Client
 from typing import Optional
 
 class LLMInference:
-    def __init__(self, model: str = "phi3:mini"):
+    def __init__(self, model: str = "phi4-mini"):
         self.client = Client()
         self.model = model
 
