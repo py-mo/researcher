@@ -21,6 +21,7 @@ source .venv/bin/activate
 uv pip install -r pyproject.toml
 uv pip install transformers
 uv pip install torch [--index-url https://download.pytorch.org/whl/cpu]
+uv pip install accelerate
 ```
 
 ---

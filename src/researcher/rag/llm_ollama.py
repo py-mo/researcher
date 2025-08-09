@@ -1,6 +1,6 @@
 from ollama import Client
 from typing import Optional
-from researcher import LLMInference
+from researcher.rag import LLMInference
 
 
 class LLMOllama(LLMInference):
