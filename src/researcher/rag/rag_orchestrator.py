@@ -1,13 +1,13 @@
 from typing import Optional, List
 from pathlib import Path
 from researcher.pipelines import RetrieverPipeline
-from researcher import ( NomicEmbedder, LLMOllama
+from researcher import ( NomicEmbedder, LLMInference
                         , FolderManager, PDFTextExtractor
                     )
 
 class RAGOrchestrator:
     def __init__(self, embedder: NomicEmbedder, retriever: RetrieverPipeline
-                 , llm: LLMOllama, fm: FolderManager):
+                 , llm: LLMInference, fm: FolderManager):
         self.embedder = embedder
         self.retriever = retriever
         self.llm = llm

@@ -1,15 +1,16 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed, BitsAndBytesConfig
 import torch
 from typing import Optional
 from researcher.rag import LLMInference
 
 
 class LLMTransformers(LLMInference):
-    def __init__(self, model: str = "ibm-granite/granite-3.3-2b-instruct"):
+    def __init__(self, model: str = "ibm-granite/granite-3.3-2b-instruct"
+                 , bnb_config: BitsAndBytesConfig = None):
         self.model = AutoModelForCausalLM.from_pretrained(
             model,
             device_map="auto",
-            torch_dtype=torch.bfloat16,
+            quantization_config=bnb_config,
         )
         self.tokenizer = AutoTokenizer.from_pretrained(
             model
