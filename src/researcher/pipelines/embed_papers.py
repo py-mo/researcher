@@ -31,7 +31,7 @@ class EmbedPapersPipeline:
             
             paper_id: str = str(pdf)[(len(str(self.pdf_dir)) + 1):-4]
             try:
-                self.embedder.embed_and_store(paper_id, self.chunker(text)[0], self.index_path)
+                self.embedder.embed_and_store(paper_id, self.chunker(text), self.index_path)
             except Exception as e:
                 if raise_err:
                     raise e
