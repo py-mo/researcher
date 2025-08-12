@@ -39,11 +39,18 @@ class NomicEmbedder:
         
         return embedding
 
-    def embed_and_store(self, paper_id: str, chunk: str
+    def embed_and_store(self, paper_id: str, chunks: List[str]
                         , out_dir: Path):
-        vectors = self.embed(chunk)
+        vectors = self.embed(chunks)
         title = self.folder_manager.get_paper_info(paper_id)["title"]
-        output = [{"title": title, "embedding": vectors}]
+        output = []
+        for chunk, vector in zip(chunks, vectors):
+            output.append({
+                "title": title,
+                "paper_id": paper_id,
+                "chunk": chunk,
+                "embedding": vector
+            })
 
         file_path = out_dir / f"{paper_id}.json"
         file_path.parent.mkdir(parents=True, exist_ok=True)
