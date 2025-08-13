@@ -5,7 +5,7 @@ from typing import List
 from researcher import FolderManager, Embedder
 
 
-class NomicEmbedder(Embedder):
+class STEmbedder(Embedder):
     def __init__(self, model: str = "sentence-transformers/all-MiniLM-L6-v2"
                  , papers_dir: Path = None, metadata_dir: Path = None):
         self.model = SentenceTransformer(model)
@@ -20,7 +20,7 @@ class NomicEmbedder(Embedder):
         embedding: list[list[float]] = []
         for text in texts:
             try:
-                embedding.append(self.model.encode(text))
+                embedding.append(self.model.encode(text).tolist())
             except (ValueError, KeyError) as e:
                 raise RuntimeError(f"Failed to parse embedding response: {e}")
         

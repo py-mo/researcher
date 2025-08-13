@@ -1,12 +1,12 @@
-from researcher import PDFTextExtractor, NomicEmbedder, simple_chunk
+from researcher import PDFTextExtractor, simple_chunk, Embedder
 from pathlib import Path
 
 
 class EmbedPapersPipeline:
-    def __init__(self, topic: str, pdf_dir: Path, index_path: Path = None, metadata_dir: Path = None):
+    def __init__(self, topic: str, embedder: Embedder, pdf_dir: Path, index_path: Path = None, metadata_dir: Path = None):
         self.topic = topic
         self.pdf_dir = pdf_dir
-        self.embedder = NomicEmbedder(metadata_dir=metadata_dir)
+        self.embedder = embedder
         self.chunker = simple_chunk
         if index_path:
             self.index_path = index_path

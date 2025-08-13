@@ -1,11 +1,11 @@
 from typing import Optional, List
 from researcher.pipelines import RetrieverPipeline
-from researcher import ( NomicEmbedder, LLMInference
+from researcher import ( Embedder, LLMInference
                         , FolderManager
                     )
 
 class RAGOrchestrator:
-    def __init__(self, embedder: NomicEmbedder, retriever: RetrieverPipeline
+    def __init__(self, embedder: Embedder, retriever: RetrieverPipeline
                  , llm: LLMInference, fm: FolderManager):
         self.embedder = embedder
         self.retriever = retriever

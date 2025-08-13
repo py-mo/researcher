@@ -1,6 +1,8 @@
 import argparse
 from researcher import ArxivSearch, ArxivDownloader
 from researcher.pipelines import FetchPapersPipeline, EmbedPapersPipeline
+from researcher.embedding.embedder_ollama import OllamaEmbedder
+from researcher.embedding.embedder_transformers import STEmbedder
 from pathlib import Path
 
 def handle_search(args):
@@ -47,7 +49,10 @@ def handle_embed_papers(args):
         else:
             metadata = None
 
-        pipeline = EmbedPapersPipeline(args.topic, Path(args.pdf_dir), output, metadata)
+        if args.st:
+            pipeline = EmbedPapersPipeline(args.topic, STEmbedder(),Path(args.pdf_dir), output, metadata)
+        else:
+            pipeline = EmbedPapersPipeline(args.topic, OllamaEmbedder(),Path(args.pdf_dir), output, metadata)
         pipeline.run_pipeline(raise_err=True)
     except Exception as e:
         print(f"{str(e)}")
@@ -81,6 +86,7 @@ def main():
     embed_papers_parser.add_argument("pdf_dir", type=str, help="Pdfs path")
     embed_papers_parser.add_argument("--metadata_dir", type=str, default="None", help="Metadata path")
     embed_papers_parser.add_argument("--output", type=str, default="None", help="Output path(default: data/embedding)")
+    embed_papers_parser.add_argument("--st", type=bool, default=False, help="Are you wanna use sentence transformers?(boolean, default = False)")
     embed_papers_parser.set_defaults(func=handle_embed_papers)
 
     args = parser.parse_args()
