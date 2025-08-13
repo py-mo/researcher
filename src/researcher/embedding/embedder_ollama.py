@@ -1,15 +1,13 @@
 import json
-import requests
 from pathlib import Path
 from typing import List
+import ollama
 from researcher import FolderManager, Embedder
 
 
-class NomicEmbedder(Embedder):
-    def __init__(self, model: str = "nomic-embed-text", base_url: str = "http://localhost:11434"
-                 , papers_dir: Path = None, metadata_dir: Path = None):
+class OllamaEmbedder(Embedder):
+    def __init__(self, model: str = "nomic-embed-text", papers_dir: Path = None, metadata_dir: Path = None):
         self.model = model
-        self.api_url = f"{base_url}/api/embeddings"
         self.papers_dir = papers_dir if papers_dir else Path("data/papers");
         self.metadata_dir = metadata_dir
         self.folder_manager = FolderManager(self.papers_dir, self.metadata_dir)
@@ -20,22 +18,11 @@ class NomicEmbedder(Embedder):
 
         embedding: list[list[float]] = []
         for text in texts:
-            response = requests.post(
-                self.api_url,
-                json={
-                    "model": self.model,
-                    "prompt": text
-                }
-            )
-
-            if response.status_code != 200:
-                raise RuntimeError(f"Embedding failed: {response.text}")
-
             try:
-                data = response.json()
-                embedding.append(data["embedding"] if "embedding" in data else [d["embedding"] for d in data["data"]])
-            except (ValueError, KeyError) as e:
-                raise RuntimeError(f"Failed to parse embedding response: {e}")
+                response = ollama.embeddings(model=self.model, prompt=text)
+                embedding.append(response['embedding'])
+            except Exception as e:
+                raise RuntimeError(f"Embedding failed: {str(e)}")
         
         return embedding
 
