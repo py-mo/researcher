@@ -90,7 +90,6 @@ regex==2025.7.34
 requests==2.32.4
 requests-oauthlib==2.0.0
 requests-toolbelt==1.0.0
--e file:///home/m/AI/Agents/researcher
 rich==14.0.0
 rpds-py==0.26.0
 rsa==4.9.1
