@@ -14,7 +14,7 @@ class EmbeddingSearcher:
 
     def build(self, vectors: list[tuple[str, list[float]]], n_trees=10):
         for i, (paper_id, vector) in enumerate(vectors):
-            self.index.add_item(i, vector[0])
+            self.index.add_item(i, vector)
             self.mapping[i] = paper_id
         self.index.build(n_trees)
         self.index.save(str(self.index_path))
@@ -28,4 +28,12 @@ class EmbeddingSearcher:
 
     def search(self, query_vector: list[float], k=5):
         ids = self.index.get_nns_by_vector(query_vector, k)
-        return [self.mapping[str(i)] for i in ids]
+        results = []
+        for i in ids:
+            chunk_info = self.mapping[str(i)]
+            results.append({
+                "paper_id": chunk_info["paper_id"],
+                "title": chunk_info["title"],
+                "chunk": chunk_info["chunk"]
+            })
+        return results

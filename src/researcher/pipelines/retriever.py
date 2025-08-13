@@ -1,25 +1,39 @@
 from pathlib import Path
 from typing import List
-from researcher import EmbeddingSearcher, NomicEmbedder
+from researcher import EmbeddingSearcher
+from researcher.embedding.index_builder import build_annoy_index
+from researcher.embedding.embedder_ollama import OllamaEmbedder
+from researcher.embedding.embedder_transformers import STEmbedder
 
 
 class RetrieverPipeline:
     def __init__(self, embeddings_path: List[Path], index_path: Path, mapping_path: Path
-                 , dim: int, n_trees: int):
+                 , dim: int, n_trees: int, st_embedder: bool = False):
         self.embeddings_path = embeddings_path
         self.index_path = index_path
         self.mapping_path = mapping_path
-        self.vectors: List[List[float]] = []
-        self.embedder = NomicEmbedder()
-
-        search_builder = EmbeddingSearcher(dim=dim, index_path=self.index_path, mapping_path=self.mapping_path)
-        for embedding_path in self.embeddings_path:
-            x = NomicEmbedder.load_vectors_from_json(embedding_path)
-            self.vectors.append(x)
-
-        search_builder.build(self.vectors, n_trees=n_trees)
+        self.dim = dim
+        self.n_trees = n_trees
+        if st_embedder:
+            self.embedder = STEmbedder()
+        else:
+            self.embedder = OllamaEmbedder()
         
         self.search_loader = EmbeddingSearcher(dim=dim, index_path=self.index_path, mapping_path=self.mapping_path)
+        
+        if not self.index_path.exists() or not self.mapping_path.exists():
+            self._build_index()
+
+    def _build_index(self):
+        self.index_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        for embedding_path in self.embeddings_path:
+            build_annoy_index(
+                json_path=embedding_path,
+                index_dir=self.index_path.parent,
+                dim=self.dim,
+                n_trees=self.n_trees
+            )
 
     def run_pipeline(self, query: str, k_neighbors: int) -> List[str]:
         self.search_loader.load()

@@ -1,11 +1,11 @@
 import pytest
 from unittest.mock import patch, MagicMock
 import json
-from researcher import NomicEmbedder
+from researcher.embedding.embedder_ollama import OllamaEmbedder
 
 @pytest.fixture
 def embedder():
-    return NomicEmbedder()
+    return OllamaEmbedder()
 
 def test_embed_success(embedder):
     texts = ["Hello, world!"]

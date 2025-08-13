@@ -4,12 +4,12 @@ from .integrations import ArxivSearch
 from .integrations import ArxivDownloader
 from .storage import FolderManager
 from .extract import PDFTextExtractor
-from .embedding import NomicEmbedder, simple_chunk, EmbeddingSearcher
+from .embedding import Embedder, simple_chunk, EmbeddingSearcher
 from .rag import LLMInference
 
 __all__ = ["ArxivSearch", "ArxivDownloader", "FolderManager"
            , "PDFTextExtractor"
-           , "NomicEmbedder", "simple_chunk"
+           , "Embedder", "simple_chunk"
            , "EmbeddingSearcher"
            , "LLMInference"
 ]

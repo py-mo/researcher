@@ -1,28 +1,8 @@
-from ollama import Client
+from abc import ABC, abstractmethod
 from typing import Optional
 
-class LLMInference:
-    def __init__(self, model: str = "phi3:mini"):
-        self.client = Client()
-        self.model = model
 
+class LLMInference(ABC):
+    @abstractmethod
     def ask(self, prompt: str, system_prompt: Optional[str] = None, options: dict = None) -> str:
-        messages = []
-
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-
-        messages.append({"role": "user", "content": prompt})
-
-        response = self.client.chat(
-            model=self.model,
-            messages=messages,
-            stream=False,
-            options=options
-        )
-        return response['message']['content']
-
-if __name__ == "__main__":
-    llm = LLMInference()
-    result = llm.ask("Summarize contrastive learning.")
-    print(result)
+        pass

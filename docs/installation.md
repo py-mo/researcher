@@ -19,6 +19,7 @@ cd researcher
 uv venv
 source .venv/bin/activate
 uv pip install -r pyproject.toml
+uv pip install -r requirements.txt
 ```
 
 ---
@@ -30,16 +31,15 @@ then
 
 ```bash
 ollama serve
-ollama pull phi3:mini
+ollama pull phi4-mini
 ollama pull nomic-embed-text
-ollama run phi3:mini
+ollama run phi4-mini
 ```
 
-| Model   | Use                   |
-| ------- | --------------------- |
-| llama3  | General-purpose LLM   |
-| mistral | Lightweight model     |
-| phi3    | Open-source assistant |
+| Model   | Use                      |
+| ------- | ------------------------ |
+| gemma3  | Powerful model           |
+| phi4    | Summarize long documents |
 
 ---
 
