@@ -16,8 +16,12 @@ class RAGOrchestrator:
             options: Optional[dict] = None, k: Optional[int] = 5) -> str:
         chunks: List[dict] = self.retriever.run_pipeline(query=query, k_neighbors=k)
 
-        context = ""
-        for chunk in chunks:
-            context += "\n\n".join(chunk["chunk"])
+        if k == 0:
+            context = ""
+        else:
+            context = chunks[0]["chunk"]
+            chunks.pop(0)
+            for chunk in chunks:
+                context += "\n".join(chunk["chunk"])
         prompt = f"Use the following context to answer the question:\n\n{context}\n\nQuestion: {query}\nAnswer:"
         return self.llm.ask(prompt=prompt, system_prompt=system_prompt, options=options)
