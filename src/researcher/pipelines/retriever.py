@@ -13,7 +13,7 @@ class RetrieverPipeline:
         self.mapping_path = mapping_path
         self.dim = dim
         self.n_trees = n_trees
-        self.embedder = Embedder()
+        self.embedder = embedder
         
         self.search_loader = EmbeddingSearcher(dim=dim, index_path=self.index_path, mapping_path=self.mapping_path)
         
