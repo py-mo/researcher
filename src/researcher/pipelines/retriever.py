@@ -2,22 +2,18 @@ from pathlib import Path
 from typing import List
 from researcher import EmbeddingSearcher
 from researcher.embedding.index_builder import build_annoy_index
-from researcher.embedding.embedder_ollama import OllamaEmbedder
-from researcher.embedding.embedder_transformers import STEmbedder
+from researcher.embedding import Embedder
 
 
 class RetrieverPipeline:
-    def __init__(self, embeddings_path: List[Path], index_path: Path, mapping_path: Path
-                 , dim: int, n_trees: int, st_embedder: bool = False):
+    def __init__(self, embedder: Embedder, embeddings_path: List[Path], index_path: Path, mapping_path: Path
+                 , dim: int, n_trees: int):
         self.embeddings_path = embeddings_path
         self.index_path = index_path
         self.mapping_path = mapping_path
         self.dim = dim
         self.n_trees = n_trees
-        if st_embedder:
-            self.embedder = STEmbedder()
-        else:
-            self.embedder = OllamaEmbedder()
+        self.embedder = Embedder()
         
         self.search_loader = EmbeddingSearcher(dim=dim, index_path=self.index_path, mapping_path=self.mapping_path)
         
