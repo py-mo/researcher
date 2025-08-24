@@ -1,5 +1,3 @@
-__version__ = "0.1.0"
-
 from .integrations import ArxivSearch
 from .integrations import ArxivDownloader
 from .storage import FolderManager
