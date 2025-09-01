@@ -32,7 +32,16 @@ As a CS student with a passion for AI and deep learning, I often read papers and
 
 ---
 
+## Why Paused
+
+Main reason: Focus has shifted to a [Hybrid-Retrieval-Augmented-Generation](https://github.com/py-mo/Hybrid-Retrieval-Augmented-Generation) that explores retrieval quality and advanced tooling.  
+This project is on hold until insights and components from that work can be merged back.
+
+
+---
+
 ## 🙋‍♂️ About Me
+
 I'm Morteza, a computer science student and AI enthusiast.
 This project is part of my journey into LLMs, retrieval-augmented generation, and building autonomous research tools.
 
