@@ -10,13 +10,6 @@
 **Researcher** is an intelligent research assistant designed to search, retrieve, and reason over scientific papers autonomously.  
 Version `v0.1.0` introduces a **full agentic architecture** powered by **LangGraph**, **mem0**, and **structured tool orchestration**.
 
-The app can:
-## Why Paused
-
-Main reason: Focus has shifted to a [Hybrid-Retrieval-Augmented-Generation](https://github.com/py-mo/Hybrid-Retrieval-Augmented-Generation) that explores retrieval quality and advanced tooling.  
-This project is on hold until insights and components from that work can be merged back.
-
-
 ---
 
 ## 🙋‍♂️ About Me
