@@ -9,7 +9,7 @@ dependencies = [
     "fastapi",
     "langchain",
     "langgraph",
-    "mem0",
+    "mem0ai>=0.1.118",
     "openai",
     "pydantic",
 ]
