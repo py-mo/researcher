@@ -29,7 +29,12 @@ class BasicSearchTool(ABC):
     """
 
     @abstractmethod
-    def search(self, query: str, max_results: int) -> SearchResults:
+    async def search(self, query: str, max_results: int) -> SearchResults:
+        NotImplemented("The searcher class should implement this!")
+
+    @staticmethod
+    @abstractmethod
+    async def parse_results(xml_response: str) -> List[SearchResult]:
         NotImplemented("The searcher class should implement this!")
 
 
