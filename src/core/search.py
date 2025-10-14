@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import BaseModel, Field, HttpUrl
 from datetime import date
+from abc import ABC, abstractmethod
 
 
 class SearchResult(BaseModel):
@@ -21,6 +22,15 @@ class SearchResults(BaseModel):
     query: str = Field(..., description="Original user query that produced these results")
     total_results: Optional[int] = Field(None, description="Total number of results found")
     results: List[SearchResult] = Field(..., description="List of search results")
+
+class BasicSearchTool(ABC):
+    """
+    Base interface for search tools.
+    """
+
+    @abstractmethod
+    def search(self, query: str, max_results: int) -> SearchResults:
+        NotImplemented("The searcher class should implement this!")
 
 
 if __name__ == "__main__":
